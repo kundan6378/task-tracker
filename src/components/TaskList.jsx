@@ -61,57 +61,59 @@ const TaskList = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
-      <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between">
-        {/* App Name */}
-        <div className="text-xl font-bold text-cyan-600">TaskTracker</div>
-
-        {/* Right Side: filter + Search Icon + Button */}
-        <div className="flex items-center gap-4">
-          <div className="bg-white p-2 rounded-full shadow-md inline-flex gap-3">
-            {
-              /* buttons here */
-
-              <div className="flex gap-3 mt-6 sm:mt-0 items-center">
-                {[
-                  { type: "all", label: "All", count: allCount },
-                  {
-                    type: "completed",
-                    label: "Completed",
-                    count: completedCount,
-                  },
-                  { type: "pending", label: "Pending", count: pendingCount },
-                ].map(({ type, label, count }) => (
-                  <button
-                    key={type}
-                    onClick={() => setFilter(type)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium shadow-sm transition-colors duration-300
-        ${
-          filter === type
-            ? "bg-cyan-600 text-white"
-            : "bg-gray-100 text-gray-700 hover:bg-cyan-100"
-        }`}
-                  >
-                    {label} ({count})
-                  </button>
-                ))}
-              </div>
-            }
+      <nav className="bg-white shadow-md w-full px-4 py-4">
+        <div className="max-w-screen-xl mx-auto w-full flex flex-col sm:flex-row sm:items-center sm:justify-between">
+          {/* Left: Logo */}
+          <div className="text-xl font-bold text-cyan-600 mb-4 sm:mb-0">
+            TaskTracker
           </div>
 
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search tasks..."
-            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 w-full sm:w-64"
-          />
+          {/* Right: Filters + Search + Create (pushed to far right using ml-auto) */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 gap-4 w-full sm:w-auto sm:ml-auto">
+            {/* Filter Buttons */}
+            <div className="flex flex-wrap gap-2 sm:gap-3 justify-start sm:justify-end">
+              {[
+                { type: "all", label: "All", count: allCount },
+                {
+                  type: "completed",
+                  label: "Completed",
+                  count: completedCount,
+                },
+                { type: "pending", label: "Pending", count: pendingCount },
+              ].map(({ type, label, count }) => (
+                <button
+                  key={type}
+                  onClick={() => setFilter(type)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium shadow-sm transition-colors duration-300
+              ${
+                filter === type
+                  ? "bg-cyan-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-cyan-100"
+              }`}
+                >
+                  {label} ({count})
+                </button>
+              ))}
+            </div>
 
-          <button
-            onClick={handleCreateTask}
-            className="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700 transition"
-          >
-            Create Task
-          </button>
+            {/* Search + Create */}
+            <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto sm:justify-end">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search tasks..."
+                className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 w-full sm:w-64"
+              />
+
+              <button
+                onClick={handleCreateTask}
+                className="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700 transition w-full sm:w-auto"
+              >
+                Create Task
+              </button>
+            </div>
+          </div>
         </div>
       </nav>
 
